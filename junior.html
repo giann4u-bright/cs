@@ -2,401 +2,308 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>더브라이트학원 입학상담일지 (초중등)</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     --blue: #1e3a5f; --sky: #4a90d9; --light-blue: #e8f2fb;
-    --border: #dde5ee; --text: #2a2a2a; --muted: #888;
-    --bg: #f4f7fb; --white: #fff; --radius: 8px;
-    --gold: #c9a227; --dark: #1a1a2e;
+    --border: #dde5ee; --text: #1e1e1e; --muted: #888;
+    --bg: #f4f7fb; --white: #fff; --radius: 14px; --touch: 52px;
   }
-  body { font-family: 'Noto Sans KR', sans-serif; background: var(--bg); color: var(--text); font-size: 13px; padding: 20px; }
-  .page { max-width: 760px; margin: 0 auto; background: var(--white); border-radius: 14px; overflow: hidden; box-shadow: 0 6px 40px rgba(0,0,0,0.1); }
-
-  /* Header - 초중등은 블루 테마 */
-  .header { background: var(--blue); padding: 28px 36px 22px; position: relative; overflow: hidden; }
-  .header::before { content:''; position:absolute; top:-40px; right:-40px; width:180px; height:180px; border-radius:50%; background:var(--sky); opacity:.15; }
-  .header::after { content:''; position:absolute; bottom:-25px; left:60px; width:100px; height:100px; border-radius:50%; background:var(--sky); opacity:.1; }
-  .tag { font-size:9px; letter-spacing:3px; color:#7ec8f5; text-transform:uppercase; margin-bottom:4px; }
-  .h-title { font-family:'Playfair Display',serif; font-size:26px; color:#fff; font-weight:600; }
-  .h-title em { font-style:italic; color:#7ec8f5; }
-  .level-tag { display:inline-block; margin-top:8px; padding:3px 12px; border-radius:20px; border:1px solid #7ec8f5; color:#7ec8f5; font-size:10px; letter-spacing:2px; }
-  .h-meta { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:16px; padding-top:14px; border-top:1px solid rgba(255,255,255,.12); }
-  .h-meta label { display:block; font-size:9px; letter-spacing:2px; color:rgba(255,255,255,.4); text-transform:uppercase; margin-bottom:3px; }
-  .h-meta input { background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,.2); color:#fff; font-family:'Noto Sans KR',sans-serif; font-size:13px; padding:4px 0; width:100%; outline:none; }
-  .h-meta input:focus { border-bottom-color:#7ec8f5; }
-
-  /* Body */
-  .body { padding: 26px 36px; }
-  .section { margin-bottom:18px; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
-  .sec-head { display:flex; align-items:center; gap:10px; padding:9px 14px; background:#eef4fb; border-bottom:1px solid var(--border); }
-  .sec-icon { width:26px; height:26px; background:var(--blue); border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0; }
-  .sec-title { font-size:12px; font-weight:700; color:var(--blue); }
-  .badge { margin-left:auto; font-size:9px; padding:2px 8px; border-radius:20px; background:var(--light-blue); color:#1e5a9f; border:1px solid #a8cef0; }
-  .sec-body { padding:14px 16px; }
-  .divider { height:1px; background:var(--border); margin:12px 0; }
-  .sub { font-size:10px; color:var(--muted); font-weight:500; margin-bottom:7px; }
-
-  /* Fields */
-  .fg { display:grid; grid-template-columns:1fr 1fr; gap:10px 16px; margin-bottom:10px; }
-  .fg.three { grid-template-columns:repeat(3,1fr); }
-  .field { display:flex; flex-direction:column; gap:4px; }
-  .field label { font-size:10px; color:var(--muted); font-weight:500; }
-  .field input, .field textarea, .field select {
-    border:1px solid var(--border); border-radius:6px; padding:7px 10px;
-    font-family:'Noto Sans KR',sans-serif; font-size:13px; color:var(--text);
-    background:var(--white); outline:none; transition:border-color .15s; width:100%;
-  }
-  .field input:focus, .field textarea:focus, .field select:focus { border-color:var(--sky); }
-  .field textarea { resize:vertical; min-height:64px; }
-
-  /* Checkboxes */
-  .cg { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
-  .cg.three { grid-template-columns:repeat(3,1fr); }
-  .ci { display:flex; align-items:center; gap:7px; padding:6px 10px; border:1px solid var(--border); border-radius:6px; cursor:pointer; transition:all .12s; user-select:none; }
-  .ci:hover { border-color:var(--sky); background:var(--light-blue); }
-  .ci.on { background:var(--light-blue); border-color:var(--sky); }
-  .cb { width:15px; height:15px; border:1.5px solid #ccc; border-radius:3px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:10px; color:transparent; transition:all .12s; }
-  .ci.on .cb { background:var(--sky); border-color:var(--sky); color:#fff; }
-  .cl { font-size:11px; color:var(--text); line-height:1.3; }
-  .ci.on .cl { color:#1e5a9f; font-weight:500; }
-
-  /* Radio pills */
-  .rg { display:flex; gap:6px; flex-wrap:wrap; }
-  .rp { display:flex; align-items:center; gap:5px; padding:5px 12px; border:1px solid var(--border); border-radius:20px; cursor:pointer; font-size:11px; color:var(--text); background:var(--white); transition:all .12s; user-select:none; }
-  .rp:hover { border-color:var(--sky); }
-  .rp.on { background:var(--blue); border-color:var(--blue); color:#7ec8f5; font-weight:500; }
-  .rd { width:7px; height:7px; border-radius:50%; border:1.5px solid currentColor; flex-shrink:0; }
-  .rp.on .rd { background:#7ec8f5; border-color:#7ec8f5; }
-
-  /* Level */
-  .lw { display:flex; gap:5px; }
-  .lb { flex:1; height:30px; border:1px solid var(--border); border-radius:6px; background:var(--white); cursor:pointer; font-size:11px; color:var(--muted); font-family:'Noto Sans KR',sans-serif; transition:all .12s; }
-  .lb:hover { border-color:var(--sky); }
-  .lb.on { background:var(--blue); border-color:var(--blue); color:#7ec8f5; font-weight:500; }
-
-  /* Sign */
-  .sign-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:18px; }
-  .sign-box { border:1px solid var(--border); border-radius:var(--radius); padding:12px 14px; text-align:center; }
-  .sign-label { font-size:10px; color:var(--muted); margin-bottom:28px; }
-  .sign-line { border-top:1px solid var(--border); padding-top:6px; font-size:11px; color:var(--muted); }
-
-  /* Footer */
-  .footer { background:#eef4fb; border-top:1px solid var(--border); padding:10px 36px; display:flex; justify-content:space-between; }
-  .footer span { font-size:10px; color:var(--muted); }
-
-  /* Toolbar */
-  .toolbar { max-width:760px; margin:0 auto 14px; display:flex; gap:10px; justify-content:flex-end; }
-  .btn { padding:8px 18px; border-radius:var(--radius); font-family:'Noto Sans KR',sans-serif; font-size:12px; cursor:pointer; border:1px solid var(--border); background:var(--white); color:var(--text); transition:all .12s; }
-  .btn:hover { border-color:var(--sky); }
-  .btn.pri { background:var(--blue); border-color:var(--blue); color:#7ec8f5; font-weight:500; }
-  .btn.pri:hover { opacity:.85; }
-  .btn.sub-btn { background:#2d6a4f; border-color:#2d6a4f; color:#fff; font-weight:500; }
-  .btn.sub-btn:hover { opacity:.85; }
+  body { font-family: 'Noto Sans KR', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; -webkit-text-size-adjust: 100%; }
+  .header { background: var(--blue); padding: 32px 20px 24px; position: relative; overflow: hidden; }
+  .header::before { content:''; position:absolute; top:-50px; right:-50px; width:200px; height:200px; border-radius:50%; background:var(--sky); opacity:.15; }
+  .brand-sub { font-size:11px; letter-spacing:3px; color:#7ec8f5; text-transform:uppercase; margin-bottom:6px; }
+  .brand-main { font-family:'Playfair Display',serif; font-size:28px; color:#fff; font-weight:600; line-height:1.2; }
+  .brand-main em { font-style:italic; color:#7ec8f5; }
+  .level-badge { display:inline-block; margin-top:10px; padding:4px 14px; border-radius:20px; border:1px solid #7ec8f5; color:#7ec8f5; font-size:11px; letter-spacing:2px; }
+  .meta-row { background:#1a2d4a; padding:16px 20px; display:flex; flex-direction:column; gap:12px; }
+  .meta-field label { display:block; font-size:10px; letter-spacing:2px; color:rgba(255,255,255,.4); text-transform:uppercase; margin-bottom:4px; }
+  .meta-field input { background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,.2); color:#fff; font-family:'Noto Sans KR',sans-serif; font-size:15px; padding:6px 0; width:100%; outline:none; }
+  .meta-field input:focus { border-bottom-color:#7ec8f5; }
+  .body { padding:16px; display:flex; flex-direction:column; gap:12px; }
+  .block { background:var(--white); border-radius:var(--radius); overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,.06); }
+  .block-header { display:flex; align-items:center; gap:12px; padding:14px 16px; border-bottom:1px solid var(--border); background:#eef4fb; }
+  .block-icon { width:36px; height:36px; background:var(--blue); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+  .block-title { font-size:15px; font-weight:700; color:var(--blue); }
+  .block-badge { margin-left:auto; font-size:10px; padding:3px 10px; border-radius:20px; background:var(--light-blue); color:#1e5a9f; border:1px solid #a8cef0; white-space:nowrap; }
+  .block-body { padding:16px; display:flex; flex-direction:column; gap:16px; }
+  .field { display:flex; flex-direction:column; gap:6px; }
+  .field-label { font-size:12px; color:var(--muted); font-weight:500; }
+  .field input, .field textarea { border:1.5px solid var(--border); border-radius:10px; padding:12px 14px; font-family:'Noto Sans KR',sans-serif; font-size:15px; color:var(--text); background:var(--white); outline:none; transition:border-color .15s; width:100%; min-height:var(--touch); }
+  .field input:focus, .field textarea:focus { border-color:var(--sky); }
+  .field textarea { resize:vertical; min-height:90px; }
+  .field-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .divider { height:1px; background:var(--border); }
+  .sub-title { font-size:13px; color:var(--muted); font-weight:500; }
+  .check-list { display:flex; flex-direction:column; gap:8px; }
+  .check-item { display:flex; align-items:center; gap:14px; padding:14px 16px; border:1.5px solid var(--border); border-radius:12px; cursor:pointer; transition:all .12s; user-select:none; min-height:var(--touch); }
+  .check-item:active { transform:scale(.98); }
+  .check-item.on { background:var(--light-blue); border-color:var(--sky); }
+  .cb { width:22px; height:22px; flex-shrink:0; border:2px solid #ccc; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:13px; color:transparent; transition:all .12s; }
+  .check-item.on .cb { background:var(--sky); border-color:var(--sky); color:#fff; }
+  .cl { font-size:15px; color:var(--text); line-height:1.4; }
+  .check-item.on .cl { color:#1e5a9f; font-weight:500; }
+  .check-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .check-grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; }
+  .check-grid-2 .check-item, .check-grid-3 .check-item { justify-content:center; text-align:center; padding:14px 8px; }
+  .radio-list { display:flex; flex-direction:column; gap:8px; }
+  .radio-item { display:flex; align-items:center; gap:14px; padding:14px 16px; border:1.5px solid var(--border); border-radius:12px; cursor:pointer; transition:all .12s; user-select:none; min-height:var(--touch); }
+  .radio-item:active { transform:scale(.98); }
+  .radio-item.on { background:var(--blue); border-color:var(--blue); }
+  .rb { width:20px; height:20px; flex-shrink:0; border:2px solid #ccc; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:all .12s; }
+  .radio-item.on .rb { border-color:#7ec8f5; }
+  .rb::after { content:''; width:10px; height:10px; border-radius:50%; background:transparent; transition:all .12s; }
+  .radio-item.on .rb::after { background:#7ec8f5; }
+  .rl { font-size:15px; color:var(--text); }
+  .radio-item.on .rl { color:#7ec8f5; font-weight:500; }
+  .level-bar { display:flex; gap:6px; }
+  .lbtn { flex:1; height:var(--touch); border:1.5px solid var(--border); border-radius:10px; background:var(--white); cursor:pointer; font-size:12px; color:var(--muted); font-family:'Noto Sans KR',sans-serif; transition:all .12s; }
+  .lbtn.on { background:var(--blue); border-color:var(--blue); color:#7ec8f5; font-weight:500; }
+  .sign-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:16px; }
+  .sign-box { border:1.5px solid var(--border); border-radius:12px; padding:14px; text-align:center; }
+  .sign-label { font-size:12px; color:var(--muted); margin-bottom:32px; }
+  .sign-line { border-top:1px solid var(--border); padding-top:8px; font-size:12px; color:var(--muted); }
+  .btn-area { padding:16px; display:flex; flex-direction:column; gap:10px; }
+  .btn { width:100%; height:54px; border-radius:14px; font-family:'Noto Sans KR',sans-serif; font-size:16px; font-weight:700; cursor:pointer; border:none; transition:all .15s; }
+  .btn-submit { background:var(--blue); color:#7ec8f5; }
+  .btn-submit:active { opacity:.85; }
+  .btn-print { background:var(--white); color:var(--text); border:1.5px solid var(--border); font-weight:500; }
+  .btn-reset { background:transparent; color:var(--muted); font-size:14px; font-weight:400; height:44px; }
   .btn:disabled { opacity:.5; cursor:not-allowed; }
-
-  /* Toast */
-  .toast { position:fixed; top:20px; left:50%; transform:translateX(-50%) translateY(-80px); background:var(--blue); color:#7ec8f5; padding:12px 24px; border-radius:30px; font-size:13px; font-weight:500; transition:transform .3s; z-index:999; pointer-events:none; }
+  .footer { padding:16px; text-align:center; }
+  .footer span { font-size:11px; color:var(--muted); }
+  .toast { position:fixed; bottom:20px; left:50%; transform:translateX(-50%) translateY(100px); background:var(--blue); color:#7ec8f5; padding:14px 24px; border-radius:30px; font-size:14px; font-weight:500; transition:transform .3s; z-index:999; pointer-events:none; white-space:nowrap; box-shadow:0 4px 20px rgba(0,0,0,.3); }
   .toast.show { transform:translateX(-50%) translateY(0); }
-
-  @media print {
-    body { background:#fff; padding:0; }
-    .page { box-shadow:none; border-radius:0; max-width:100%; }
-    .toolbar { display:none; }
-    .header,.sec-head,.ci.on,.rp.on,.lb.on { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-    .section { break-inside:avoid; }
+  @media (min-width:600px) {
+    .body { max-width:640px; margin:0 auto; padding:24px; }
+    .check-list { display:grid; grid-template-columns:1fr 1fr; }
+    .radio-list { display:grid; grid-template-columns:1fr 1fr; }
+    .btn-area { max-width:640px; margin:0 auto; flex-direction:row; }
+    .btn-submit { flex:2; } .btn-print { flex:1; } .btn-reset { display:none; }
   }
+  @media print { body { background:#fff; } .btn-area,.toast { display:none; } .block { box-shadow:none; border:1px solid #ddd; } }
 </style>
 </head>
 <body>
-
 <div class="toast" id="toast"></div>
-
-<div class="toolbar">
-  <button class="btn" onclick="resetAll()">🔄 초기화</button>
-  <button class="btn pri" onclick="window.print()">🖨️ 인쇄 / PDF</button>
-  <button class="btn sub-btn" id="submitBtn" onclick="submitToNotion()">📤 Notion에 제출</button>
+<div class="header">
+  <div class="brand-sub">The Bright Academy · 영어 전문</div>
+  <div class="brand-main">입학 상담일지 <em>Consultation</em></div>
+  <div class="level-badge">초중등부 ELEM &amp; MIDDLE</div>
 </div>
-
-<div class="page">
-  <div class="header">
-    <div class="tag">The Bright Academy · 영어 전문</div>
-    <div class="h-title">입학 상담일지 <em>Consultation</em></div>
-    <div class="level-tag">초중등부 ELEM &amp; MIDDLE</div>
-    <div class="h-meta">
-      <div><label>상담 일자</label><input type="date" id="date"></div>
-      <div><label>담당 선생님</label><input type="text" id="teacher" placeholder="성함 입력"></div>
-      <div><label>상담 방식</label><input type="text" id="method" placeholder="방문 / 전화 / 온라인"></div>
-    </div>
-  </div>
-
-  <div class="body">
-
-    <!-- 기본 정보 -->
-    <div class="section">
-      <div class="sec-head"><div class="sec-icon">👤</div><div class="sec-title">학생 기본 정보</div></div>
-      <div class="sec-body">
-        <div class="fg">
-          <div class="field"><label>학생 이름 *</label><input type="text" id="name" placeholder="홍길동"></div>
-          <div class="field"><label>학생 연락처</label><input type="tel" id="student-tel" placeholder="010-0000-0000"></div>
-          <div class="field"><label>학부모 연락처 *</label><input type="tel" id="parent-tel" placeholder="010-0000-0000"></div>
-          <div class="field"><label>학교명 / 학년</label><input type="text" id="school" placeholder="예) OO초등학교 5학년 / OO중학교 2학년"></div>
-        </div>
-        <div class="divider"></div>
-        <div class="sub">구분</div>
-        <div class="rg" data-rg="school-type">
-          <div class="rp" onclick="selR(this)"><div class="rd"></div>초등 저학년 (1~3학년)</div>
-          <div class="rp" onclick="selR(this)"><div class="rd"></div>초등 고학년 (4~6학년)</div>
-          <div class="rp" onclick="selR(this)"><div class="rd"></div>중학교 1학년</div>
-          <div class="rp" onclick="selR(this)"><div class="rd"></div>중학교 2학년</div>
-          <div class="rp" onclick="selR(this)"><div class="rd"></div>중학교 3학년</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 학습 현황 -->
-    <div class="section">
-      <div class="sec-head"><div class="sec-icon">📚</div><div class="sec-title">학습 현황</div><div class="badge">다중 선택</div></div>
-      <div class="sec-body">
-        <div class="sub">현재 영어 공부 방법</div>
-        <div class="cg" id="current">
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">영어 학원 수강 중</div></div>
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">원어민 과외 중</div></div>
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">개인 한국인 과외</div></div>
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">영어 독서 (영어책)</div></div>
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">앱/온라인 학습</div></div>
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">현재 아무것도 안 함</div></div>
-        </div>
-        <div class="divider"></div>
-        <div class="sub">영어 공부 기간</div>
-        <div class="rg" data-rg="dur">
-          <div class="rp" onclick="selR(this)"><div class="rd"></div>6개월 미만</div>
-          <div class="rp" onclick="selR(this)"><div class="rd"></div>6개월~1년</div>
-          <div class="rp" onclick="selR(this)"><div class="rd"></div>1~2년</div>
-          <div class="rp" onclick="selR(this)"><div class="rd"></div>2~3년</div>
-          <div class="rp" onclick="selR(this)"><div class="rd"></div>3년 이상</div>
-        </div>
-        <div class="divider"></div>
-        <div class="sub">현재 영어 실력 (자체 평가)</div>
-        <div class="lw" data-lw="lv">
-          <button class="lb" onclick="selL(this)">알파벳 수준</button>
-          <button class="lb" onclick="selL(this)">기초 단어</button>
-          <button class="lb" onclick="selL(this)">간단 문장</button>
-          <button class="lb" onclick="selL(this)">교과서 수준</button>
-          <button class="lb" onclick="selL(this)">교과서 이상</button>
-        </div>
-        <div class="divider"></div>
-        <div class="sub">가장 최근 영어 내신 / 학교 성적</div>
-        <div class="rg" data-rg="grade">
-          <div class="rp" onclick="selR(this)"><div class="rd"></div>90점 이상</div>
-          <div class="rp" onclick="selR(this)"><div class="rd"></div>80~89점</div>
-          <div class="rp" onclick="selR(this)"><div class="rd"></div>70~79점</div>
-          <div class="rp" onclick="selR(this)"><div class="rd"></div>60~69점</div>
-          <div class="rp" onclick="selR(this)"><div class="rd"></div>60점 미만</div>
-          <div class="rp" onclick="selR(this)"><div class="rd"></div>아직 시험 없음</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 집중 영역 -->
-    <div class="section">
-      <div class="sec-head"><div class="sec-icon">🎯</div><div class="sec-title">집중 학습 영역</div><div class="badge">다중 선택</div></div>
-      <div class="sec-body">
-        <div class="sub">어느 영역에 집중하고 싶으신가요?</div>
-        <div class="cg" id="focus">
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">파닉스 / 발음 교정</div></div>
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">기초 영단어 암기</div></div>
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">영어 문법 기초</div></div>
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">교과서 내신 대비</div></div>
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">영어 독해 (읽기)</div></div>
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">영어 회화 / 말하기</div></div>
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">영어 쓰기 / 작문</div></div>
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">고등 영어 선행</div></div>
-        </div>
-        <div class="divider"></div>
-        <div class="sub">가장 어렵게 느끼는 부분</div>
-        <div class="cg three" id="hard">
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">단어 암기</div></div>
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">문법 이해</div></div>
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">긴 지문 읽기</div></div>
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">듣기 / 받아쓰기</div></div>
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">말하기 자신감</div></div>
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">전반적으로 어려움</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 수업 희망 -->
-    <div class="section">
-      <div class="sec-head"><div class="sec-icon">🗓️</div><div class="sec-title">수업 희망 일정</div></div>
-      <div class="sec-body">
-        <div class="sub">희망 수업 횟수</div>
-        <div class="rg" data-rg="freq">
-          <div class="rp" onclick="selR(this)"><div class="rd"></div>주 1회</div>
-          <div class="rp" onclick="selR(this)"><div class="rd"></div>주 2회</div>
-          <div class="rp" onclick="selR(this)"><div class="rd"></div>주 3회</div>
-          <div class="rp" onclick="selR(this)"><div class="rd"></div>주 4회 이상</div>
-          <div class="rp" onclick="selR(this)"><div class="rd"></div>미정</div>
-        </div>
-        <div class="divider"></div>
-        <div class="sub">가능한 요일 (복수 선택)</div>
-        <div class="cg three" id="days">
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">월요일</div></div>
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">화요일</div></div>
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">수요일</div></div>
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">목요일</div></div>
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">금요일</div></div>
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">토요일</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 학부모 관심사 -->
-    <div class="section">
-      <div class="sec-head"><div class="sec-icon">👪</div><div class="sec-title">학부모 관심사항</div><div class="badge">다중 선택</div></div>
-      <div class="sec-body">
-        <div class="cg" id="parent-concern">
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">내신 성적 향상</div></div>
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">영어 자신감 키우기</div></div>
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">고등 대비 선행</div></div>
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">기초부터 탄탄히</div></div>
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">학습 습관 형성</div></div>
-          <div class="ci" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">진도 빠르게 나가기</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 메모 -->
-    <div class="section">
-      <div class="sec-head"><div class="sec-icon">📝</div><div class="sec-title">상담 메모</div></div>
-      <div class="sec-body">
-        <div class="sub">학생 / 학부모 요청사항</div>
-        <div class="field"><textarea id="memo" placeholder="상담 내용 자유롭게 기입..."></textarea></div>
-        <div class="divider"></div>
-        <div class="sub">담당 선생님 의견 (내부용)</div>
-        <div class="field"><textarea id="teacher-memo" placeholder="반 배치 추천, 특이 사항, 팔로업 필요 여부 등..."></textarea></div>
-        <div class="divider"></div>
-        <div class="sub">상담 결과</div>
-        <div class="rg" data-rg="result">
-          <div class="rp" onclick="selR(this)"><div class="rd"></div>등록 완료</div>
-          <div class="rp" onclick="selR(this)"><div class="rd"></div>검토 중</div>
-          <div class="rp" onclick="selR(this)"><div class="rd"></div>다음 상담 예정</div>
-          <div class="rp" onclick="selR(this)"><div class="rd"></div>미등록</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="sign-row">
-      <div class="sign-box"><div class="sign-label">학부모 / 학생 확인</div><div class="sign-line">서명</div></div>
-      <div class="sign-box"><div class="sign-label">담당 선생님 확인</div><div class="sign-line">서명</div></div>
-    </div>
-  </div>
-
-  <div class="footer">
-    <span>더브라이트학원 · 대전 · 영어 전문</span>
-    <span>초중등부 The Bright Academy</span>
-  </div>
+<div class="meta-row">
+  <div class="meta-field"><label>상담 일자</label><input type="date" id="date"></div>
+  <div class="meta-field"><label>담당 선생님</label><input type="text" id="teacher" placeholder="성함 입력"></div>
+  <div class="meta-field"><label>상담 방식</label><input type="text" id="method" placeholder="방문 / 전화 / 온라인"></div>
 </div>
-
+<div class="body">
+  <div class="block">
+    <div class="block-header"><div class="block-icon">👤</div><div class="block-title">학생 기본 정보</div></div>
+    <div class="block-body">
+      <div class="field-row">
+        <div class="field"><div class="field-label">학생 이름 *</div><input type="text" id="name" placeholder="홍길동"></div>
+        <div class="field"><div class="field-label">학년</div><input type="text" id="school" placeholder="초5 / 중2"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><div class="field-label">학생 연락처</div><input type="tel" id="student-tel" placeholder="010-0000-0000"></div>
+        <div class="field"><div class="field-label">학부모 연락처 *</div><input type="tel" id="parent-tel" placeholder="010-0000-0000"></div>
+      </div>
+      <div class="field"><div class="field-label">학교명</div><input type="text" id="school-name" placeholder="예) OO초등학교 / OO중학교"></div>
+      <div class="divider"></div>
+      <div class="sub-title">구분</div>
+      <div class="radio-list" data-rg="school-type">
+        <div class="radio-item" onclick="selR(this)"><div class="rb"></div><div class="rl">초등 저학년 (1~3학년)</div></div>
+        <div class="radio-item" onclick="selR(this)"><div class="rb"></div><div class="rl">초등 고학년 (4~6학년)</div></div>
+        <div class="radio-item" onclick="selR(this)"><div class="rb"></div><div class="rl">중학교 1학년</div></div>
+        <div class="radio-item" onclick="selR(this)"><div class="rb"></div><div class="rl">중학교 2학년</div></div>
+        <div class="radio-item" onclick="selR(this)"><div class="rb"></div><div class="rl">중학교 3학년</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="block-header"><div class="block-icon">📚</div><div class="block-title">학습 현황</div><div class="block-badge">다중 선택</div></div>
+    <div class="block-body">
+      <div class="sub-title">현재 영어 공부 방법</div>
+      <div class="check-list" id="current">
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">영어 학원 수강 중</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">원어민 과외 중</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">개인 한국인 과외</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">영어 독서 (영어책)</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">앱 / 온라인 학습</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">현재 아무것도 안 함</div></div>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-title">영어 공부 기간</div>
+      <div class="radio-list" data-rg="dur">
+        <div class="radio-item" onclick="selR(this)"><div class="rb"></div><div class="rl">6개월 미만</div></div>
+        <div class="radio-item" onclick="selR(this)"><div class="rb"></div><div class="rl">6개월 ~ 1년</div></div>
+        <div class="radio-item" onclick="selR(this)"><div class="rb"></div><div class="rl">1 ~ 2년</div></div>
+        <div class="radio-item" onclick="selR(this)"><div class="rb"></div><div class="rl">2 ~ 3년</div></div>
+        <div class="radio-item" onclick="selR(this)"><div class="rb"></div><div class="rl">3년 이상</div></div>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-title">현재 영어 실력 (자체 평가)</div>
+      <div class="level-bar" data-lw="lv">
+        <button class="lbtn" onclick="selL(this)">알파벳</button>
+        <button class="lbtn" onclick="selL(this)">기초단어</button>
+        <button class="lbtn" onclick="selL(this)">간단문장</button>
+        <button class="lbtn" onclick="selL(this)">교과서</button>
+        <button class="lbtn" onclick="selL(this)">그이상</button>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-title">최근 영어 성적</div>
+      <div class="radio-list" data-rg="grade">
+        <div class="radio-item" onclick="selR(this)"><div class="rb"></div><div class="rl">90점 이상</div></div>
+        <div class="radio-item" onclick="selR(this)"><div class="rb"></div><div class="rl">80 ~ 89점</div></div>
+        <div class="radio-item" onclick="selR(this)"><div class="rb"></div><div class="rl">70 ~ 79점</div></div>
+        <div class="radio-item" onclick="selR(this)"><div class="rb"></div><div class="rl">60 ~ 69점</div></div>
+        <div class="radio-item" onclick="selR(this)"><div class="rb"></div><div class="rl">60점 미만</div></div>
+        <div class="radio-item" onclick="selR(this)"><div class="rb"></div><div class="rl">아직 시험 없음</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="block-header"><div class="block-icon">🎯</div><div class="block-title">집중 학습 영역</div><div class="block-badge">다중 선택</div></div>
+    <div class="block-body">
+      <div class="sub-title">집중하고 싶은 영역</div>
+      <div class="check-list" id="focus">
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">파닉스 / 발음 교정</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">기초 영단어 암기</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">영어 문법 기초</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">교과서 내신 대비</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">영어 독해 (읽기)</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">영어 회화 / 말하기</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">영어 쓰기 / 작문</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">고등 영어 선행</div></div>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-title">가장 어렵게 느끼는 부분</div>
+      <div class="check-grid-2" id="hard">
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">단어 암기</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">문법 이해</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">긴 지문 읽기</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">듣기 / 받아쓰기</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">말하기 자신감</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">전반적으로 어려움</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="block-header"><div class="block-icon">👪</div><div class="block-title">학부모 관심사항</div><div class="block-badge">다중 선택</div></div>
+    <div class="block-body">
+      <div class="check-list" id="parent-concern">
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">내신 성적 향상</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">영어 자신감 키우기</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">고등 대비 선행</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">기초부터 탄탄히</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">학습 습관 형성</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">진도 빠르게 나가기</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="block-header"><div class="block-icon">🗓️</div><div class="block-title">수업 희망 일정</div></div>
+    <div class="block-body">
+      <div class="sub-title">희망 수업 횟수</div>
+      <div class="radio-list" data-rg="freq">
+        <div class="radio-item" onclick="selR(this)"><div class="rb"></div><div class="rl">주 1회</div></div>
+        <div class="radio-item" onclick="selR(this)"><div class="rb"></div><div class="rl">주 2회</div></div>
+        <div class="radio-item" onclick="selR(this)"><div class="rb"></div><div class="rl">주 3회</div></div>
+        <div class="radio-item" onclick="selR(this)"><div class="rb"></div><div class="rl">주 4회 이상</div></div>
+        <div class="radio-item" onclick="selR(this)"><div class="rb"></div><div class="rl">미정</div></div>
+      </div>
+      <div class="divider"></div>
+      <div class="sub-title">가능한 요일</div>
+      <div class="check-grid-3" id="days">
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">월</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">화</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">수</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">목</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">금</div></div>
+        <div class="check-item" onclick="toggle(this)"><div class="cb">✓</div><div class="cl">토</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="block-header"><div class="block-icon">📝</div><div class="block-title">상담 메모</div></div>
+    <div class="block-body">
+      <div class="field"><div class="field-label">학생 / 학부모 요청사항</div><textarea id="memo" placeholder="상담 내용 자유롭게 기입..."></textarea></div>
+      <div class="field"><div class="field-label">담당 선생님 의견 (내부용)</div><textarea id="teacher-memo" placeholder="반 배치 추천, 특이 사항 등..."></textarea></div>
+      <div class="divider"></div>
+      <div class="sub-title">상담 결과</div>
+      <div class="radio-list" data-rg="result">
+        <div class="radio-item" onclick="selR(this)"><div class="rb"></div><div class="rl">✅ 등록 완료</div></div>
+        <div class="radio-item" onclick="selR(this)"><div class="rb"></div><div class="rl">🔄 검토 중</div></div>
+        <div class="radio-item" onclick="selR(this)"><div class="rb"></div><div class="rl">📅 다음 상담 예정</div></div>
+        <div class="radio-item" onclick="selR(this)"><div class="rb"></div><div class="rl">❌ 미등록</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sign-row">
+    <div class="sign-box"><div class="sign-label">학부모 / 학생 확인</div><div class="sign-line">서명</div></div>
+    <div class="sign-box"><div class="sign-label">담당 선생님 확인</div><div class="sign-line">서명</div></div>
+  </div>
+  <div class="btn-area">
+    <button class="btn btn-submit" id="submitBtn" onclick="submitToNotion()">📤 Notion에 제출</button>
+    <button class="btn btn-print" onclick="window.print()">🖨️ 인쇄</button>
+    <button class="btn btn-reset" onclick="resetAll()">초기화</button>
+  </div>
+  <div class="footer"><span>더브라이트학원 · 대전 · 영어 전문 · 초중등부</span></div>
+</div>
 <script>
-const DB_ID = '3747c4533aba80b085d8f372d1e7a0df';
-
-function toggle(el) { el.classList.toggle('on'); }
-function selR(el) {
-  el.closest('[data-rg]').querySelectorAll('.rp').forEach(p => p.classList.remove('on'));
-  el.classList.add('on');
+const DB_ID='3747c4533aba80b085d8f372d1e7a0df';
+function toggle(el){el.classList.toggle('on');}
+function selR(el){el.closest('[data-rg]').querySelectorAll('.radio-item').forEach(p=>p.classList.remove('on'));el.classList.add('on');}
+function selL(el){el.closest('[data-lw]').querySelectorAll('.lbtn').forEach(b=>b.classList.remove('on'));el.classList.add('on');}
+function getChecked(id){return[...document.querySelectorAll('#'+id+' .check-item.on .cl')].map(e=>e.textContent).join(', ');}
+function getRadio(rg){const el=document.querySelector('[data-rg="'+rg+'"] .radio-item.on .rl');return el?el.textContent.trim():'';}
+function getLevel(){const el=document.querySelector('[data-lw="lv"] .lbtn.on');return el?el.textContent.trim():'';}
+function showToast(msg,duration=3000){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),duration);}
+async function submitToNotion(){
+  const name=document.getElementById('name').value.trim();
+  if(!name){showToast('⚠️ 학생 이름을 입력해주세요');return;}
+  const btn=document.getElementById('submitBtn');
+  btn.disabled=true;btn.textContent='전송 중...';
+  const payload={parent:{database_id:DB_ID},properties:{
+    "학생 이름":{title:[{text:{content:name}}]},
+    "학생 연락처":{rich_text:[{text:{content:document.getElementById('student-tel').value}}]},
+    "학부모 연락처":{rich_text:[{text:{content:document.getElementById('parent-tel').value}}]},
+    "학교/학년":{rich_text:[{text:{content:document.getElementById('school-name').value+' '+document.getElementById('school').value}}]},
+    "목표 대학":{rich_text:[{text:{content:getRadio('school-type')}}]},
+    "영어 공부 기간":{rich_text:[{text:{content:getRadio('dur')}}]},
+    "자체 실력 평가":{rich_text:[{text:{content:getLevel()}}]},
+    "최근 등급":{rich_text:[{text:{content:getRadio('grade')}}]},
+    "현재 수강":{rich_text:[{text:{content:getChecked('current')}}]},
+    "집중 영역":{rich_text:[{text:{content:getChecked('focus')}}]},
+    "어려운 유형":{rich_text:[{text:{content:getChecked('hard')}}]},
+    "희망 횟수":{rich_text:[{text:{content:getRadio('freq')}}]},
+    "가능 요일":{rich_text:[{text:{content:getChecked('days')}}]},
+    "상담 결과":{rich_text:[{text:{content:getRadio('result')}}]},
+    "메모":{rich_text:[{text:{content:document.getElementById('memo').value}}]},
+    "선생님 의견":{rich_text:[{text:{content:document.getElementById('teacher-memo').value}}]},
+    "상담일자":{rich_text:[{text:{content:document.getElementById('date').value}}]},
+    "구분":{rich_text:[{text:{content:'초중등부'}}]}
+  }};
+  try{
+    const res=await fetch('/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    const data=await res.json();
+    if(res.ok){showToast('✅ Notion에 저장되었습니다!',4000);}
+    else{showToast('❌ 오류: '+(data.message||'전송 실패'),4000);}
+  }catch(e){showToast('❌ 네트워크 오류가 발생했습니다',4000);}
+  finally{btn.disabled=false;btn.textContent='📤 Notion에 제출';}
 }
-function selL(el) {
-  el.closest('[data-lw]').querySelectorAll('.lb').forEach(b => b.classList.remove('on'));
-  el.classList.add('on');
+function resetAll(){
+  if(!confirm('모든 내용을 초기화할까요?'))return;
+  document.querySelectorAll('.check-item').forEach(i=>i.classList.remove('on'));
+  document.querySelectorAll('.radio-item').forEach(i=>i.classList.remove('on'));
+  document.querySelectorAll('.lbtn').forEach(i=>i.classList.remove('on'));
+  document.querySelectorAll('input[type="text"],input[type="tel"],textarea').forEach(i=>i.value='');
+  document.getElementById('date').value=new Date().toISOString().split('T')[0];
 }
-function getChecked(id) {
-  return [...document.querySelectorAll(`#${id} .ci.on .cl`)].map(e => e.textContent).join(', ');
-}
-function getRadio(rg) {
-  const el = document.querySelector(`[data-rg="${rg}"] .rp.on`);
-  return el ? el.textContent.trim() : '';
-}
-function getLevel() {
-  const el = document.querySelector('[data-lw="lv"] .lb.on');
-  return el ? el.textContent.trim() : '';
-}
-function showToast(msg, duration=3000) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), duration);
-}
-
-async function submitToNotion() {
-  const name = document.getElementById('name').value.trim();
-  if (!name) { showToast('⚠️ 학생 이름을 입력해주세요'); return; }
-
-  const btn = document.getElementById('submitBtn');
-  btn.disabled = true;
-  btn.textContent = '전송 중...';
-
-  const payload = {
-    parent: { database_id: DB_ID },
-    properties: {
-      "학생 이름": { title: [{ text: { content: name } }] },
-      "학생 연락처": { rich_text: [{ text: { content: document.getElementById('student-tel').value } }] },
-      "학부모 연락처": { rich_text: [{ text: { content: document.getElementById('parent-tel').value } }] },
-      "학교/학년": { rich_text: [{ text: { content: document.getElementById('school').value } }] },
-      "목표 대학": { rich_text: [{ text: { content: getRadio('school-type') } }] },
-      "영어 공부 기간": { rich_text: [{ text: { content: getRadio('dur') } }] },
-      "자체 실력 평가": { rich_text: [{ text: { content: getLevel() } }] },
-      "최근 등급": { rich_text: [{ text: { content: getRadio('grade') } }] },
-      "현재 수강": { rich_text: [{ text: { content: getChecked('current') } }] },
-      "집중 영역": { rich_text: [{ text: { content: getChecked('focus') } }] },
-      "어려운 유형": { rich_text: [{ text: { content: getChecked('hard') } }] },
-      "희망 횟수": { rich_text: [{ text: { content: getRadio('freq') } }] },
-      "가능 요일": { rich_text: [{ text: { content: getChecked('days') } }] },
-      "상담 결과": { rich_text: [{ text: { content: getRadio('result') } }] },
-      "메모": { rich_text: [{ text: { content: document.getElementById('memo').value } }] },
-      "선생님 의견": { rich_text: [{ text: { content: document.getElementById('teacher-memo').value } }] },
-      "상담일자": { rich_text: [{ text: { content: document.getElementById('date').value } }] },
-      "구분": { rich_text: [{ text: { content: '초중등부' } }] },
-    }
-  };
-
-  try {
-    const res = await fetch('/api/submit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-    const data = await res.json();
-    if (res.ok) {
-      showToast('✅ Notion에 저장되었습니다!', 4000);
-    } else {
-      showToast('❌ 오류: ' + (data.message || '전송 실패'), 4000);
-      console.error(data);
-    }
-  } catch(e) {
-    showToast('❌ 네트워크 오류가 발생했습니다', 4000);
-    console.error(e);
-  } finally {
-    btn.disabled = false;
-    btn.textContent = '📤 Notion에 제출';
-  }
-}
-
-function resetAll() {
-  if (!confirm('모든 내용을 초기화할까요?')) return;
-  document.querySelectorAll('.ci').forEach(i => i.classList.remove('on'));
-  document.querySelectorAll('.rp').forEach(i => i.classList.remove('on'));
-  document.querySelectorAll('.lb').forEach(i => i.classList.remove('on'));
-  document.querySelectorAll('input[type="text"],input[type="tel"],textarea').forEach(i => i.value = '');
-  document.getElementById('date').value = '';
-}
-
-window.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('date').value = new Date().toISOString().split('T')[0];
-});
+window.addEventListener('DOMContentLoaded',()=>{document.getElementById('date').value=new Date().toISOString().split('T')[0];});
 </script>
 </body>
 </html>
